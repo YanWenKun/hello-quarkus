@@ -1,4 +1,4 @@
-package fun.yanwk.hello.helloquarkus;
+package fun.yanwk.helloquarkus.helloworld;
 
 import javax.enterprise.context.ApplicationScoped;
 

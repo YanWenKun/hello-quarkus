@@ -9,9 +9,9 @@ https://quarkus.io/guides/getting-started
 [source,bash]
 ----
 mvn io.quarkus:quarkus-maven-plugin:1.4.2.Final:create \
-    -DprojectGroupId=fun.yanwk.hello \
-    -DprojectArtifactId=hello-quarkus \
-    -DclassName="fun.yanwk.hello.helloquarkus.GreetingResource" \
+    -DprojectGroupId=fun.yanwk.helloquarkus \
+    -DprojectArtifactId=hello-world \
+    -DclassName="fun.yanwk.helloquarkus.helloworld.GreetingResource" \
     -Dpath="/hello"
 cd hello-quarkus
 ----

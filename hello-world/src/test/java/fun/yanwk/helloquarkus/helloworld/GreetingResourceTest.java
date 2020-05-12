@@ -1,4 +1,4 @@
-package fun.yanwk.hello.helloquarkus;
+package fun.yanwk.helloquarkus.helloworld;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;

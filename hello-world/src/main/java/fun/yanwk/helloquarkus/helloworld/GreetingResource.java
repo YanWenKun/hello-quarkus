@@ -1,4 +1,4 @@
-package fun.yanwk.hello.helloquarkus;
+package fun.yanwk.helloquarkus.helloworld;
 
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
