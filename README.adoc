@@ -5,8 +5,11 @@
 |===
 |目录 |内容
 
-| link:hello-world[]
-| Hello World，使用 RESTEasy
+|link:hello-world[]
+|Hello World，使用 RESTEasy
+
+|link:hibernate[]
+|使用 JPA Hibernate ORM
 
 |===
 

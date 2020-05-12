@@ -1,0 +1,38 @@
+= 使用 Hibernate ORM
+
+参考：
+https://quarkus.io/guides/hibernate-orm
+
+== 建立项目
+
+[source,xml,indent=0]
+----
+  <dependencies>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-hibernate-orm</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-jdbc-postgresql</artifactId>
+    </dependency>
+  </dependencies>
+----
+
+* 只要依赖中有 Hibernate ORM extension，程序就会自动创建一个 `EntityManagerFactory`
+* 可以在程序中 CDI（上下文依赖注入） `@Inject EntityManager em`
+
+== 配置数据源
+
+.application.properties
+[source,properties]
+----
+include::src/main/resources/application.properties[]
+----
+
+== 测试用数据
+
+.import-dev.sql
+link:src/main/resources/import-dev.sql[]
+
+即使不写配置，Quarkus Hibernate 也会在 `dev` 和 `test` 两个 Profile 中自动执行 `import.sql`（如果有的话）。
