@@ -1,0 +1,24 @@
+= Quarkus 果然棒！
+
+拿来练手的 Quarkus 项目集合
+
+|===
+|目录 |内容
+
+| link:hello-world[]
+| Hello World，使用 RESTEasy
+
+|===
+
+== 赶脚
+
+* Maven 一等公民，Gradle 往后稍稍
+** 都是写微服务的，用不着 Gradle 的复杂构建
+** 反倒是 Maven 规范清晰、速度飞快
+
+* Java 优先
+** 不排斥 Kotlin 和 Scala，但是优先支持 Java
+
+* 不瞎造轮子
+** 虽然 Spring 是事实标准，但 Spring 之外的 Java EE 世界还活着好好的
+** MicroProfile、Vert.x 趁这一波云原生反倒是有点后发优势
