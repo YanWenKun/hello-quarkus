@@ -1,4 +1,4 @@
-package fun.yanwk.helloquarkus.hibernate.entity;
+package fun.yanwk.helloquarkus.hibernate.goods;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +11,7 @@ public class Gift {
     private String name;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "giftSeq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "giftSeq")
     public Long getId() {
         return id;
     }

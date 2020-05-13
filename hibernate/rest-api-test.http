@@ -1,0 +1,42 @@
+### 尝试添加中文项。正常
+POST http://localhost:8080/fruits
+Content-Type: application/json
+
+{
+  "name": "猕猴桃"
+}
+
+### 这里 "description" 是多余字段
+POST http://localhost:8080/fruits
+Content-Type: application/json
+
+{
+  "name": "Pineapple",
+  "description": "Pen-Apple-Pen!"
+}
+
+### 这里 "id" 是不被允许的字段
+POST http://localhost:8080/fruits
+Content-Type: application/json
+
+{
+  "id": 99,
+  "name": "Watermelon"
+}
+
+### 尝试添加重复项
+POST http://localhost:8080/fruits
+Content-Type: application/json
+
+{
+  "name": "Pineapple"
+}
+
+### 尝试添加残缺项。正常添加，只有一个 "id" 主键
+POST http://localhost:8080/fruits
+Content-Type: application/json
+
+{
+  "description": "Another Berry"
+}
+

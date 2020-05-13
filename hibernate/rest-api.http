@@ -1,0 +1,31 @@
+### 网页 CRUD Mission - Quarkus
+GET http://localhost:8080/
+Accept: text/html
+Accept-Charset: UTF-8
+
+### Fruits.get
+GET http://localhost:8080/fruits
+Accept: application/json
+
+### Fruits.getSingle
+GET http://localhost:8080/fruits/2
+Accept: application/json
+
+### Fruits.create
+POST http://localhost:8080/fruits
+Content-Type: application/json
+
+{
+  "name": "Strawberry"
+}
+
+### Fruits.update
+PUT http://localhost:8080/fruits/2
+Content-Type: application/json
+
+{
+  "name": "Apple-Pen"
+}
+
+### Fruits.delete
+DELETE http://localhost:8080/fruits/2

@@ -3,6 +3,18 @@
 参考：
 https://quarkus.io/guides/hibernate-orm
 
+== 注意
+
+这个项目用的是 PostgreSQL，程序启动时需要有对应数据源。
+
+如果装有 Docker，可以直接运行：
+
+ docker-compose up -d
+
+如需变更端口和账密，修改 `docker-compose.yml` 。
+
+这次是为了练手，下一个项目还是用 H2 做开发数据库。
+
 == 建立项目
 
 [source,xml,indent=0]
@@ -30,9 +42,41 @@ https://quarkus.io/guides/hibernate-orm
 include::src/main/resources/application.properties[]
 ----
 
-== 测试用数据
+== 测试用数据（拟造数据、填充数据）
 
 .import-dev.sql
 link:src/main/resources/import-dev.sql[]
 
-即使不写配置，Quarkus Hibernate 也会在 `dev` 和 `test` 两个 Profile 中自动执行 `import.sql`（如果有的话）。
+即使不写配置，Quarkus Hibernate 也会在 `dev` 或 `test` Profile 启动时自动导入 `import.sql`（如果有的话）。
+
+== 二级缓存（应用层数据缓存）
+
+通过 `@Cacheable` 注解，默认最多 1000 条，最长 100 秒空闲。
+
+设置详见： https://quarkus.io/guides/hibernate-orm#tuning-of-cache-regions
+
+== 数据表结构迁移
+
+使用 Flyway，参考：
+https://quarkus.io/guides/flyway
+
+== 测量与统计
+
+添加依赖：
+
+[source,xml]
+<dependency>
+  <groupId>io.quarkus</groupId>
+  <artifactId>quarkus-smallrye-metrics</artifactId>
+</dependency>
+
+配置设置：
+
+ quarkus.hibernate-orm.metrics.enabled=true
+
+访问： `http://localhost:8080/metrics`
+
+== 事务设置
+
+参考：
+https://quarkus.io/guides/transaction

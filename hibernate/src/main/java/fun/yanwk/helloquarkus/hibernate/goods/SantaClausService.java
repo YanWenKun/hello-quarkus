@@ -1,6 +1,4 @@
-package fun.yanwk.helloquarkus.hibernate.service;
-
-import fun.yanwk.helloquarkus.hibernate.entity.Gift;
+package fun.yanwk.helloquarkus.hibernate.goods;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
