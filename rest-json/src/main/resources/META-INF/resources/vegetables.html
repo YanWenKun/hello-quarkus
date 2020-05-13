@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-hans">
+<head>
+  <meta charset="UTF-8">
+  <title>蔬菜 REST 服务</title>
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/wingcss/0.1.8/wing.min.css"/>
+  <!-- Load AngularJS -->
+  <script src="https://cdn.bootcdn.net/ajax/libs/angular.js/1.4.14/angular.min.js"></script>
+  <script type="text/javascript">
+    var app = angular.module("VegetableManagement", []);
+
+    //Controller Part
+    app.controller("VegetableManagementController", function ($scope, $http) {
+
+      //Initialize page with default data which is blank in this example
+      $scope.vegetables = [];
+
+      //Now load the data from server
+      _refreshPageData();
+
+      /* Private Methods */
+
+      //HTTP GET- get all vegetables collection
+      function _refreshPageData() {
+        $http({
+          method: 'GET',
+          url: '/vegetables'
+        }).then(function successCallback(response) {
+          $scope.vegetables = response.data;
+        }, function errorCallback(response) {
+          console.log(response.statusText);
+        });
+      }
+
+      function _success(response) {
+        _refreshPageData();
+      }
+
+      function _error(response) {
+        alert(response.data.message || response.statusText);
+      }
+    });
+  </script>
+</head>
+<body ng-app="VegetableManagement" ng-controller="VegetableManagementController">
+
+<div class="container">
+  <h1>REST 服务 - Vegetable</h1>
+
+  <h3>Vegetable 列表</h3>
+  <div class="row">
+    <div class="col-4">Name</div>
+    <div class="col-8">Description</div>
+  </div>
+  <div class="row" ng-repeat="vegetable in vegetables">
+    <div class="col-4">{{ vegetable.name }}</div>
+    <div class="col-8">{{ vegetable.description }}</div>
+  </div>
+</div>
+</body>
+</html>

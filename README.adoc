@@ -8,6 +8,9 @@
 |link:hello-world[]
 |Hello World，使用 RESTEasy
 
+|link:rest-json[]
+|基本的 JSON REST 服务
+
 |link:hibernate[]
 |使用 JPA Hibernate ORM
 

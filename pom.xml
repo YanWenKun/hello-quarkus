@@ -10,6 +10,7 @@
 
   <modules>
     <module>hello-world</module>
+    <module>rest-json</module>
     <module>hibernate</module>
   </modules>
 

@@ -1,0 +1,147 @@
+= 使用 Quarkus 编写简单的 JSON REST 服务
+
+参考：
+https://quarkus.io/guides/rest-json
+
+.建立项目
+[source,sh]
+----
+mvn io.quarkus:quarkus-maven-plugin:1.4.2.Final:create \
+-DprojectGroupId=fun.yanwk.helloquarkus \
+-DprojectArtifactId=rest-json \
+-DclassName="fun.yanwk.helloquarkus.json.FruitResource" \
+-Dpath="/fruits" \
+-Dextensions="resteasy-jsonb"
+----
+
+== 自动序列化
+
+JSON 序列化使用了 Java 反射机制，而在 GraalVM Native 中，所有会被反射的类都需要注册。
+好消息是，Quarkus 替开发者做了这件事。
+
+Quarkus 会分析所有 REST 方法（端点），做序列化类型推导。当按以下形式写 REST 方法时，`Fruit` 会被序列化。
+
+[source,java]
+@GET
+@Produces("application/json")
+public List<Fruit> list() {
+    // ...
+}
+
+该过程是自动的，所以在 `Fruit` 样例代码中不需要进行反射注册。
+
+== 手动注册反射
+
+另一种在 JAX-RS 世界中常见的模式是使用 Response 对象，有以下好处：
+
+* 返回不同实体，比如既可以返回 `Person` 也可以返回 `Error`
+* 为 `Response` 设置属性，即状态，关注异常处理
+
+于是 REST 方法变成了这样：
+
+[source,java]
+@GET
+@Produces("application/json")
+public Response list() {
+// ...
+}
+
+这导致 Quarkus 无法在编译期／构建时判断需要哪些类型（信息不足），也就使得 GraalVM Native 所需的反射注册无法进行。
+上述代码在 JVM 下正常，而在 GraalVM Native 下无法正常序列化数据，返回的是空的 JSON 列表，而且还不抛异常（当前版本）。
+
+针对该情况的解决方法在 `Vegetable` 相关代码中。
+
+[source,java]
+----
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
+public class Vegetable {
+// ...
+}
+----
+
+`@RegisterForReflection` 注解很重要，本例中什么都可以忘掉，唯独这个要记住。
+
+== 反应式
+
+Quarkus 推荐用 SmallRye Mutiny 来处理异步操作。
+Mutiny 看到了其他反应式库无尽的 `flatMap` 锁链，于是提出一套精简的、最常用的操作。
+
+[source,xml]
+----
+<!-- SmallRye Mutiny 反应式组件 -->
+<dependency>
+  <groupId>io.quarkus</groupId>
+  <artifactId>quarkus-resteasy-mutiny</artifactId>
+</dependency>
+----
+
+参考写法：
+
+[source,java]
+----
+@GET
+@Path("/{name}")
+public Uni<Fruit> getOne(@PathParam String name) {
+    return findByName(name);
+}
+
+@GET
+public Multi<Fruit> getAll() {
+    return findAll();
+}
+----
+
+反应式是另外的主题，不在这个项目中体现。
+
+参考：
+https://quarkus.io/guides/getting-started-reactive#mutiny
+
+== 跨域资源共享（CORS）
+
+HTTP 访问控制的一种
+
+参考：
+https://quarkus.io/guides/http-reference#cors-filter
+
+== 开启 GZip 压缩
+
+.application.properties
+[source,properties]
+quarkus.resteasy.gzip.enabled=true
+quarkus.resteasy.gzip.max-input=10M
+
+默认是关闭的。
+实际部署时往往由网关来完成这些负载。
+
+如果要开启，需要配好大小限制，减缓潜在攻击。
+
+== 没有 Servlet
+
+默认是跑在 Vert.x 上的，如果需要 Undertow，参考：
+https://quarkus.io/guides/rest-json#servlet-compatibility
+
+== 与 Jakarta EE 开发的区别
+
+* 你不需要显式创建一个 Application 类。
+
+资源的生命周期：
+
+* 所有 JAX-RS 资源都被视为 CDI Bean （CDI：上下文依赖注入），可用：
+** `@Inject` 注入
+** `@Transactional` 绑定事务拦截器
+** `@PostConstruct` 回调
+** 等等
+
+如果资源并没有限制作用范围（作用域，Scope），会以默认对待。
+可配置设置：
+
+ quarkus.resteasy.singleton-resources=true
+
+则开启单例模式，所有请求只对应一个资源类实例，即 `@javax.inject.Singleton` 所定义的。
+
+如果设为 `false`，则每个请求创建一个新的资源类实例。
+
+CDI 作用域注解 `@RequestScoped`、`@ApplicationScoped` 总是优先于默认设置。
+

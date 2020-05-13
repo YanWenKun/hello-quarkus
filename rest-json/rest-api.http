@@ -1,0 +1,58 @@
+###
+GET http://localhost:8080/
+
+###
+GET http://localhost:8080/fruits
+Accept: application/json
+
+###
+POST http://localhost:8080/fruits
+Content-Type: application/json
+
+{
+  "name": "Pineapple",
+  "description": "Pen-Apple-Pen!"
+}
+
+### 尝试添加重复项。正常添加
+POST http://localhost:8080/fruits
+Content-Type: application/json
+
+{
+  "name": "Pineapple",
+  "description": "Pen-Apple-Pen!"
+}
+
+### 尝试添加残缺项。正常添加，其他项为空
+POST http://localhost:8080/fruits
+Content-Type: application/json
+
+{
+  "name": "Strawberry"
+}
+
+### 尝试添加错误项。结果为添加了一个空集合。
+POST http://localhost:8080/fruits
+Content-Type: application/json
+
+{
+  "nam": "Wolfberry",
+  "desc": "I mean...tomato?"
+}
+
+### 尝试添加中文项。正常
+POST http://localhost:8080/fruits
+Content-Type: application/json
+
+{
+  "name": "猕猴桃",
+  "description": "猕猴桃原产中国，奇异果是假洋鬼子！"
+}
+
+### 删除逻辑并不完善
+DELETE http://localhost:8080/fruits
+Content-Type: application/json
+
+{
+  "description": "Apple"
+}
