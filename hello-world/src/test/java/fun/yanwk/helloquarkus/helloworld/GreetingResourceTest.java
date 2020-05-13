@@ -18,10 +18,10 @@ public class GreetingResourceTest {
     public void testHelloEndpoint() {
         given()
             .when()
-                .get("/hello")
+            .get("/hello")
             .then()
-                .statusCode(200) // HTTP OK
-                .body(is("你好，世界！"));
+            .statusCode(200) // HTTP OK
+            .body(is("你好，世界！"));
     }
 
     // REST Assured 挺好使
@@ -29,12 +29,12 @@ public class GreetingResourceTest {
     public void testGreetingEndpoint() {
         String uuid = UUID.randomUUID().toString();
         given()
-                .pathParam("name", uuid)
+            .pathParam("name", uuid)
             .when()
-                .get("/hello/greeting/{name}")
+            .get("/hello/greeting/{name}")
             .then()
-                .statusCode(200)
-                .body(is("Hello, " + uuid + "!"));
+            .statusCode(200)
+            .body(is("Hello, " + uuid + "!"));
     }
 
 }
