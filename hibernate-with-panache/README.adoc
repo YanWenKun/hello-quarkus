@@ -1,0 +1,17 @@
+= 使用 Panache 简化 Hibernate ORM
+
+.建立项目
+[source,sh]
+----
+mvn io.quarkus:quarkus-maven-plugin:1.4.2.Final:create \
+    -DprojectGroupId=fun.yanwk.helloquarkus \
+    -DprojectArtifactId=hibernate-with-panache \
+    -DclassName="fun.yanwk.helloquarkus.panache.entity.Person" \
+    -Dextensions="quarkus-hibernate-orm-panache,quarkus-jdbc-h2"
+----
+
+.application.properties
+----
+# 打包形式：uber-jar (fat-jar)
+quarkus.package.uber-jar=true
+----

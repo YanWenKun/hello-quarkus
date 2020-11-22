@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+
+  #  webapi: # 为该项服务命名
+  #    build:
+  #      context: . # 使用本目录作为工作目录
+  #      dockerfile: Dockerfile # 指定用于构建镜像的 Dockerfile
+  #    image: yanwk/china-divisions # 指定镜像标签
+  #    ports:
+  #      - "8080:8080" # 左为映射到本机的端口，右为容器的端口
+
+  mysql:
+    image: mysql:8
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=1q2w3e
+
+  postgres:
+    image: library/postgres:12-alpine
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=1q2w3e

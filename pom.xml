@@ -12,6 +12,7 @@
     <module>hello-world</module>
     <module>rest-json</module>
     <module>hibernate</module>
+    <module>hibernate-with-panache</module>
   </modules>
 
 </project>

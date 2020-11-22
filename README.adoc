@@ -3,7 +3,7 @@
 拿来练手的 Quarkus 项目集合
 
 |===
-|目录 |内容
+|子目录 |内容
 
 |link:hello-world[]
 |Hello World，使用 RESTEasy
@@ -14,7 +14,19 @@
 |link:hibernate[]
 |使用 JPA Hibernate ORM
 
+|link:hibernate-with-panache[]
+|使用 Panache 简化 Hibernate ORM
+
 |===
+
+== 建议
+
+官方的 https://github.com/quarkusio/quarkus-quickstarts[QuickStarts]
+面向的是有 Java EE (Spring) 经验的开发者，简短扼要，知识点分散。
+
+如果你没有这方面的开发经验，建议跟着官方的
+https://quarkus.io/quarkus-workshops/super-heroes/[Workshop]
+走一遍，这是一套从安装工具到实现微服务的完整教程。
 
 == 赶脚
 
