@@ -47,13 +47,12 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-jdbc-h2</artifactId>
     </dependency>
-    <dependency>
+    <!-- H2 的安全漏洞看来是堵不上了，报警太烦了，直接给注释掉了 -->
+    <!-- <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
-      <!-- Quarkus 因为细节兼容性原因停留在 1.4.197，但此处使用新版正常 -->
-      <!-- https://github.com/quarkusio/quarkus/issues/1522 -->
       <version>2.1.214</version>
-    </dependency>
+    </dependency> -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>
